@@ -1,0 +1,1 @@
+{"extends":"./tsconfig.json","include":["app/page.tsx","app/layout.tsx","app/api/**/*.ts","lib/**/*.ts","components/ui/**/*.tsx"],"exclude":["node_modules","lib/astronomy.js","lib/satellite.js"]}

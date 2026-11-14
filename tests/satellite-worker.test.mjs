@@ -1,0 +1,14 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import vm from 'node:vm';
+import {performance} from 'node:perf_hooks';
+const messages=[],self={postMessage:m=>messages.push(m)};
+vm.runInNewContext(fs.readFileSync('public/satellite-worker.js','utf8'),{self,performance,Date});
+const text=fs.readFileSync('public/data/satellite-catalog.csv','utf8');
+const date=Date.parse(JSON.parse(fs.readFileSync('public/data/satellite-catalog-meta.json','utf8')).fetched);
+const request={type:'frame',loc:{lat:38.473,lon:-77.996,source:'test'},view:{az:285,alt:45,roll:0,fov:70},time:date,radius:60,selected:[]};
+test('production worker loads the real catalog, bounds transfers and predicts selected paths',()=>{self.onmessage({data:{type:'load',text}});assert.equal(messages.at(-1).type,'loaded');assert.ok(messages.at(-1).count>10000);self.onmessage({data:request});let frame=messages.at(-1).frame;assert.ok(frame.objects.length>0&&frame.objects.length<=80);assert.ok(frame.objects.every(o=>o.vec.every(Number.isFinite)));const selected=frame.objects.slice(0,3).map(o=>o.id);self.onmessage({data:{...request,time:date+750,selected}});frame=messages.at(-1).frame;assert.equal(frame.paths.length,3);assert.ok(frame.paths.every(p=>p.points.length<=31));});
+test('production worker searches full catalog rather than only objects on screen',()=>{self.onmessage({data:{type:'search',query:'25544',queryId:7,loc:request.loc,time:date}});const m=messages.at(-1);assert.equal(m.type,'search');assert.equal(m.queryId,7);assert.ok(m.results.some(r=>r.id==='sat-25544'));});
+test('production worker hides stale predictions rather than presenting an outdated sky',()=>{self.onmessage({data:{...request,time:date+30*86400000}});const frame=messages.at(-1).frame;assert.equal(frame.objects.length,0);assert.equal(frame.paths.length,0);assert.equal(frame.stale,frame.total);});
+test('production worker reports malformed imports without crashing',()=>{self.onmessage({data:{type:'load',text:'<html>error</html>'}});assert.equal(messages.at(-1).type,'error');});

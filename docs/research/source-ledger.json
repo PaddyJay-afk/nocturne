@@ -1,0 +1,62 @@
+[
+  [
+    "qCode",
+    "https://pheretech.com/page1.html",
+    "Manufacturer specifies patterned strobe and continuous/burst controls but no exact timing, bits or wavelengths. No authentic qCode payload is bundled."
+  ],
+  [
+    "qCode Android",
+    "https://pheretech.com/page3.html",
+    "Product description supplies claims rather than a numerical protocol."
+  ],
+  [
+    "CE5 manual",
+    "https://drstevengreer.com/wp-content/uploads/2012/12/WorkingGroupManual.pdf",
+    "Printed page 97 describes three flashes, listening, then four flashes. Pulse durations and waits are app-defined. No proprietary audio is copied."
+  ],
+  [
+    "CE5 visualization transcript",
+    "https://drstevengreer.com/wp-content/uploads/2012/12/Coherent-Thought-Sequencing-Transcript.pdf",
+    "Original guidance paraphrases the high-level practice. Proposed consciousness-mediated contact is not established by these materials."
+  ],
+  [
+    "Chilbolton reconstruction",
+    "https://commons.wikimedia.org/wiki/File:Chilbolton_crop_circle.png",
+    "IdS, 2010, public domain (PD-self). 23\u00d773 bitmap. 428 ones; 1,251 zeros. White=1, left-to-right, top-to-bottom. Alternative reconstructions differ."
+  ],
+  [
+    "Primary Chilbolton analysis",
+    "https://www.vigay.com/cropcircles/articles/arecibo.html",
+    "Paul Vigay reports field investigation on August 25, 2001. This is historical interpretation, not verified extraterrestrial authorship."
+  ],
+  [
+    "Astronomy Engine",
+    "https://github.com/cosinekitty/astronomy",
+    "Don Cross, MIT. Local planetary ephemerides and precession. Source license is retained in lib/astronomy.js."
+  ],
+  [
+    "D3-Celestial",
+    "https://github.com/ofrohn/d3-celestial",
+    "Olaf Frohn. Hipparcos-based magnitude-six catalog and constellation geometry. BSD-3-Clause notice is bundled."
+  ],
+  [
+    "Satellite.js",
+    "https://github.com/shashwatak/satellite-js",
+    "SGP4 orbital propagation, MIT. A predicted above-horizon position does not establish illumination, visibility, or detection."
+  ],
+  [
+    "CelesTrak",
+    "https://celestrak.org/NORAD/documentation/gp-data-formats.php",
+    "Optional orbital elements. Updates requested only on user action. Epochs older than seven days are suppressed."
+  ],
+  [
+    "Apple torch interface",
+    "https://developer.apple.com/documentation/avfoundation/capture-device-lighting",
+    "Torch brightness and mode are device capabilities, not a selectable optical wavelength."
+  ],
+  [
+    "Capacitor iOS",
+    "https://capacitorjs.com/docs/ios",
+    "Native build kit uses Capacitor 8 and requires Xcode 26+. Signing and on-device testing remain owner-dependent."
+  ]
+]

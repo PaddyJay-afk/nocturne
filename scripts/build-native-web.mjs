@@ -1,0 +1,11 @@
+import {build} from 'esbuild';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+await fs.mkdir('native/www',{recursive:true});
+for(const item of ['data','fonts','favicon.svg','manifest.webmanifest','research.html','satellite-worker.js'])await fs.cp(path.join('public',item),path.join('native/www',item),{recursive:true});
+const css=(await fs.readdir('dist/client/assets')).filter(f=>f.endsWith('.css'));
+let combined='';for(const f of css)combined+=await fs.readFile(path.join('dist/client/assets',f),'utf8');
+await fs.writeFile('native/www/app.css',combined);
+await build({entryPoints:['native/entry.tsx'],outfile:'native/www/app.js',bundle:true,minify:true,platform:'browser',format:'iife',jsx:'automatic',define:{'process.env.NODE_ENV':'"production"'},alias:{'@':process.cwd()}});
+await fs.writeFile('native/www/index.html','<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#11171f"><title>Nocturne · Sky & Signal</title><link rel="stylesheet" href="app.css"><link rel="icon" href="favicon.svg"></head><body><div id="root"></div><script src="app.js"></script></body></html>');
+console.log('Self-contained native web bundle prepared.');
